@@ -44,7 +44,7 @@ module Classifier
       end
      
       # Perform the scaling transform
-      total_words = $GSL ? vec.sum : vec.sum_with_identity
+      total_words = $GSL ? vec.sum : sum_with_identity(vec)
 
       # Perform first-order association transform if this vector has more
       # than one word in it. 
@@ -66,7 +66,19 @@ module Classifier
          @raw_vector = Vector[*vec]
       end
     end   
-  
+
+    private
+
+    def sum_with_identity(arr, identity = 0, &block)
+      return identity unless arr.size > 0
+
+      if block_given?
+        arr.map(&block).sum
+      else
+        arr.inject { |sum, element| sum + element }.to_f
+      end
+    end
+
   end  
   
 end

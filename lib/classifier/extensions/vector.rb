@@ -6,19 +6,6 @@
 require 'matrix'
 require 'mathn'
 
-class Array
-  def sum_with_identity(identity = 0, &block)
-    return identity unless size > 0
-  
-    if block_given?
-      map(&block).sum
-    else
-      inject { |sum, element| sum + element }.to_f
-    end
-  end
-end
-
-
 class Vector
   def magnitude
     sumsqs = 0.0
